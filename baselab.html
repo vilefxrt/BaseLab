@@ -2,45 +2,70 @@
 <!-- Adaptado por Matheus Matos | 2025.1 -->
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPTecher's Machine</title>
+    <title>BaseLab</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body bgcolor="#00ffff">
-    <center>
-        <h1>SPTecher's Machine</h1>
+<body>
 
-        <h3>Digite um número decimal:</h3>
-        <input id="demo1" type="text" placeholder="Ex: 42">
-        <br><br>
+    <h1>BaseLab</h1>
 
-        <button onclick="converter()">Converter</button>
+    <h3>Escolha sua base: Insira um algarismo:</h3>
+    <select id="bases">
+        <option value="10">Decimal</option>
+        <option value="2">Binário</option>
+        <option value="8">Octal</option>
+        <option value="16">Hexadecimal</option>
+    </select>
 
-        <h3>Resultados:</h3>
-        <p>Octal:
-        <div id="demo2"></div>
-        </p>
-        <p>Hexadecimal:
-        <div id="demo3"></div>
-        </p>
-        <p>Binário:
-        <div id="demo4"></div>
-        </p>
-    </center>
+    <input id="ipt" type="text" placeholder="Ex: 67, 0101, a-f">
+    <br><br>
 
+    <button onclick="converter()">Converter</button>
+
+    <br><br>
+
+    <p>Decimal:
+    <div id="div_decimal"></div>
+    </p>
+    <p>Octal:
+    <div id="div_octal"></div>
+    </p>
+    <p>Hexadecimal:
+    <div id="div_hexa"></div>
+    </p>
+    <p>Binário:
+    <div id="div_binario"></div>
+    </p>
+</body>
+</html>
     <script>
         function converter() {
-            var decimal = Number(demo1.value);
+            let numeroDigitado = ipt.value.toLowerCase();
+            let base = Number(bases.value);
+            let tabela = "0123456789abcdef";
+            let decimal = 0;
+            let validado = true;
+            let i = 0;
 
-            demo2.innerHTML = decimal.toString(8);
-            demo3.innerHTML = decimal.toString(16);
-            demo4.innerHTML = decimal.toString(2);
+            while (i < numeroDigitado.length) {
+                let index = tabela.indexOf(numeroDigitado[i]); 
+                if (index === -1 || index >= base){
+                    validado = false; 
+                }
+
+                decimal = decimal * base + index;
+                i++;
+            }
+
+            div_decimal.innerHTML = decimal.toString(10);
+            div_octal.innerHTML = decimal.toString(8);
+            div_hexa.innerHTML = decimal.toString(16);
+            div_binario.innerHTML = decimal.toString(2);
         }
     </script>
-</body>
-
-</html>
